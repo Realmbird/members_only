@@ -1,5 +1,17 @@
 <h1>Index</h1>
+ <%unless current_user.blank? -%>
+    <h3>Welcome Member: <%= current_user.email %></h3>
+    
+  <% end %>
 <% @posts.each do |post| %>
   <h2><%= post.title%></h2>
   <p><%= post.body%></p>
+   <%unless current_user.blank? -%>
+    <p>Author ID: <%=post.user_id%></p>
+  <% end %>
 <% end%>
+<%unless current_user.blank? -%>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete  %>
+<% else %>
+  <%= button_to "Login", new_user_session_path, method: :new %>
+<% end %>
